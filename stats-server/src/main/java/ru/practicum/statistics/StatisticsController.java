@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.statistics.dto.HitDto;
 import ru.practicum.statistics.model.Hit;
 import ru.practicum.statistics.service.StatisticsServiceImpl;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
