@@ -18,6 +18,7 @@ public class StatisticsController {
     private final StatisticsServiceImpl service;
 
     @PostMapping("/hit")
+    @ResponseStatus(HttpStatus.CREATED)
     public void addHit(@RequestBody Hit hit) {
         log.info("Запрос на добавление записи в статистику: {}",hit);
         service.save(hit);
