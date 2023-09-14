@@ -8,6 +8,8 @@ import ru.practicum.statistics.dto.HitDto;
 import ru.practicum.statistics.model.Hit;
 import ru.practicum.statistics.service.StatisticsServiceImpl;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -28,9 +30,9 @@ public class StatisticsController {
     @ResponseStatus(HttpStatus.OK)
     public List<HitDto> getStatistics(@RequestParam(name = "start") String start,
                                       @RequestParam(name = "end") String end,
-                                      @RequestParam(name = "uriList", required = false) List<String> uriList,
+                                      @RequestParam(name = "uris", required = false) String[] uris,
                                       @RequestParam(name = "unique", defaultValue = "false") Boolean unique) {
-        log.info("Запрос на вывод статистики по посещениям: start-{}; end-{}; uriList-{}", start, end, uriList);
-        return service.get(start, end, uriList, unique);
+        log.info("Запрос на вывод статистики по посещениям: start-{}; end-{}; uriList-{}", start, end, uris);
+        return service.get(start, end, uris, unique);
     }
 }

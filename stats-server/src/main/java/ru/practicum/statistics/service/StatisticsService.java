@@ -9,5 +9,5 @@ public interface StatisticsService {
 
     void save(Hit hit);
 
-    List<HitDto> get(String start, String end, List<String> uriList, boolean unique);
+    List<HitDto> get(String start, String end, String[] uriArray, boolean unique);
 }
