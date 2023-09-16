@@ -2,6 +2,7 @@ package ru.practicum.statistics.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import ru.practicum.statistics.utility.Constants;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,12 +18,12 @@ public class Hit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    String app;
+    private String app;
     @NotBlank
-    String uri;
+    private String uri;
     @NotBlank
-    String ip;
+    private String ip;
     @NonNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss[.SSS][.SS][.S]")
-    LocalDateTime timestamp;
+    @JsonFormat(pattern = Constants.TIME_PATTERN)
+    private LocalDateTime timestamp;
 }

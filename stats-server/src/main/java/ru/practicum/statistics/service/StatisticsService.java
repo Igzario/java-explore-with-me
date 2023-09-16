@@ -3,11 +3,12 @@ package ru.practicum.statistics.service;
 import ru.practicum.statistics.dto.HitDto;
 import ru.practicum.statistics.model.Hit;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface StatisticsService {
 
-    void save(Hit hit);
+    HitDto addHit(Hit hit);
 
-    List<HitDto> get(String start, String end, String[] uriArray, boolean unique);
+    List<HitDto> getStatistics(LocalDateTime start, LocalDateTime end, String[] uriArray, boolean unique);
 }

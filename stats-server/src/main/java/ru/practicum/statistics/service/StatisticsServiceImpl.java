@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.statistics.mapper.HitMapper;
 import ru.practicum.statistics.repository.StatisticRepository;
 import ru.practicum.statistics.dto.HitDto;
 import ru.practicum.statistics.model.Hit;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -18,27 +18,25 @@ import java.util.*;
 @RequiredArgsConstructor
 public class StatisticsServiceImpl implements StatisticsService {
     private final StatisticRepository statisticRepository;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Transactional
     @Override
-    public void save(Hit hit) {
+    public HitDto addHit(Hit hit) {
         Hit hitAfterSave = statisticRepository.save(hit);
         log.info("Запись статистики сохранена: {}", hitAfterSave);
+        return HitMapper.toHitDto(hitAfterSave);
     }
 
     @Override
-    public List<HitDto> get(String start, String end, String[] uriArray, boolean unique) {
+    public List<HitDto> getStatistics(LocalDateTime startTime, LocalDateTime endTime, String[] uriArray, boolean unique) {
         List<Object> list = null;
         List<HitDto> listHits = new ArrayList<>();
-        LocalDateTime startTime = LocalDateTime.parse(start, formatter);
-        LocalDateTime endtTime = LocalDateTime.parse(end, formatter);
         if (unique) {
-            list = statisticRepository.findAllHitsWithUniqueIp(LocalDateTime.parse(start, formatter),
-                    LocalDateTime.parse(end, formatter));
+            list = statisticRepository.findAllHitsWithUniqueIp(startTime,
+                    endTime);
         } else {
             list = statisticRepository.findAllHits(startTime,
-                    endtTime);
+                    endTime);
         }
         list.forEach(obj -> {
             Object[] array = (Object[]) obj;
