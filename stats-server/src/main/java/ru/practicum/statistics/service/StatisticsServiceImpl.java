@@ -49,11 +49,6 @@ public class StatisticsServiceImpl implements StatisticsService {
             hitDtoWithStat.setHits((BigInteger) array[2]);
             listHits.add(hitDtoWithStat);
         });
-
-        if (listHits.size() == 0)
-        {}
-
-
         if (uriArray != null && listHits.size() > 0) {
             List<String> uriList = new ArrayList<>(Arrays.asList(uriArray));
             for (HitDto hitDto : listHits) {
