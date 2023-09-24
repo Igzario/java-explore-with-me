@@ -1,9 +1,11 @@
 package ru.practicum.statistics.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.statistics.exception.BadDateInRequestException;
 import ru.practicum.statistics.mapper.HitMapper;
 import ru.practicum.statistics.repository.StatisticRepository;
 import ru.practicum.statistics.dto.HitDto;
@@ -28,7 +30,12 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     @Override
+    @SneakyThrows
+    @Transactional(readOnly = true)
     public List<HitDto> getStatistics(LocalDateTime startTime, LocalDateTime endTime, String[] uriArray, boolean unique) {
+        if (endTime.isBefore(startTime)) {
+            throw new BadDateInRequestException();
+        }
         List<Object> list = null;
         List<HitDto> listHits = new ArrayList<>();
         List<HitDto> resultListHits = new ArrayList<>();
