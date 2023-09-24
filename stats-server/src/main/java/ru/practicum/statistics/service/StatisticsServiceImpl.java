@@ -47,13 +47,12 @@ public class StatisticsServiceImpl implements StatisticsService {
 
 
         if (uriArray != null && listHits.size() > 0) {
-            List<String> uriList = Arrays.asList(uriArray);
+            List<String> uriList = new ArrayList<>(Arrays.asList(uriArray));
             for (HitDto hitDto : listHits) {
-                if (uriList.contains(hitDto.getUri())) {
+                if (!uriList.contains(hitDto.getUri())) {
                     listHits.remove(hitDto);
                 }
             }
-
         }
         Collections.sort(listHits, new Comparator<HitDto>() {
             @Override
