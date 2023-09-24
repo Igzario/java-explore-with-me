@@ -40,8 +40,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 
         if (uriArray.length != 0) {
             List<String> urisList = List.of(uriArray);
-            list = list.stream().filter(v -> urisList.contains(v.getUri())).
-                    collect(Collectors.toList());
+            list = list.stream().filter(v -> urisList.contains(v.getUri())).collect(Collectors.toList());
         }
 
         log.info("Выведен список Hits: {}", list);
