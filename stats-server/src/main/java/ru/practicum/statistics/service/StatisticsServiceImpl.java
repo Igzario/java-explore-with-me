@@ -8,9 +8,7 @@ import ru.practicum.statistics.mapper.HitMapper;
 import ru.practicum.statistics.repository.StatisticRepository;
 import ru.practicum.statistics.dto.HitDto;
 import ru.practicum.statistics.model.Hit;
-import ru.practicum.statistics.utility.Constants;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
