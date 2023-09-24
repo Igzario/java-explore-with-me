@@ -59,7 +59,7 @@ public class RequestService {
             log.error("Сгененрирован ValidationException: {}", error);
             throw new ValidationException(error);
         }
-        if (event.getInitiator().getId() == userId) {
+        if (event.getInitiator().getId().equals(userId)) {
             error = "Инициатор события не может добавить запрос на участие в своём событии";
             log.error("Сгененрирован ValidationException: {}", error);
             throw new ValidationException(error);
@@ -69,8 +69,7 @@ public class RequestService {
             log.error("Сгененрирован ValidationException: {}", error);
             throw new ValidationException(error);
         }
-        if (event.getParticipantLimit() != 0 && (event.getParticipantLimit()
-                == event.getConfirmedRequests())) {
+        if (event.getParticipantLimit() != 0 && (event.getParticipantLimit().equals(event.getConfirmedRequests()))) {
             error = "Достигнут лимит запросов на участие";
             log.error("Сгененрирован ValidationException: {}", error);
             throw new ValidationException(error);
