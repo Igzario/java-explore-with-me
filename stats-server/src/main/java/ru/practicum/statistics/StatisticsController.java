@@ -36,7 +36,7 @@ public class StatisticsController {
                                       @RequestParam(name = "end")
                                       @DateTimeFormat(pattern = Constants.TIME_PATTERN) LocalDateTime end,
                                       @RequestParam(name = "uris", required = false) String[] uris,
-                                      @RequestParam(name = "unique", defaultValue = "false") Boolean unique) {
+                                      @RequestParam(name = "unique", defaultValue = "true") Boolean unique) {
         log.info("Запрос на вывод статистики по посещениям: start-{}; end-{}; uriList-{}", start, end, uris);
         return service.getStatistics(start, end, uris, unique);
     }
