@@ -2,12 +2,9 @@ package ru.practicum.ewm.category;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.category.model.Category;
-import ru.practicum.ewm.exception.CategoryAlreadyExists;
-import ru.practicum.ewm.exception.EntityNotFoundException;
 
 import javax.validation.Valid;
 
@@ -28,16 +25,15 @@ public class CategoryAdminController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Category addNewCategory(@Valid @RequestBody Category category) throws CategoryAlreadyExists {
+    public Category addNewCategory(@Valid @RequestBody Category category) {
         log.info("Запрос на создание категории: {}", category);
         return categoryService.addNewCategory(category);
     }
 
     @DeleteMapping(value = "/{catId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Category deleteCategory(@PathVariable Long catId) throws EntityNotFoundException {
+    public Category deleteCategory(@PathVariable Long catId) {
         log.info("Запрос на удаление категории с ID {}", catId);
         return categoryService.deleteCategory(catId);
     }
-
 }

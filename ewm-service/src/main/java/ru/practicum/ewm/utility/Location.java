@@ -1,4 +1,4 @@
-package ru.practicum.ewm.event.utility;
+package ru.practicum.ewm.utility;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

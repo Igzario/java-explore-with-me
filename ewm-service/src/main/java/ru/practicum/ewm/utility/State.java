@@ -1,9 +1,10 @@
-package ru.practicum.ewm.event.utility;
+package ru.practicum.ewm.utility;
 
 public enum State {
     PENDING,
     PUBLISHED,
     CANCELED,
     REJECTED,
-    UNSUPPORTED_STATE
+    UNSUPPORTED_STATE,
+    CONFIRMED
 }

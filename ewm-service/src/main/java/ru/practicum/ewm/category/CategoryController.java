@@ -1,5 +1,4 @@
 package ru.practicum.ewm.category;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.category.model.Category;
-import ru.practicum.ewm.exception.EntityNotFoundException;
+import ru.practicum.ewm.exception.exceptions.EntityNotFoundException;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -29,10 +28,10 @@ public class CategoryController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Category> getCategories(
+    public List<Category> findCategories(
             @RequestParam(value = "from", defaultValue = "0") @PositiveOrZero Integer from,
             @Validated @RequestParam(value = "size", defaultValue = "10") @Positive Integer size) {
         log.info("Запрос на вывод категорий");
-        return categoryService.getCategories(from, size);
+        return categoryService.findCategories(from, size);
     }
 }

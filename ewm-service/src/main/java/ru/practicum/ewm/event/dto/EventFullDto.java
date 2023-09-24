@@ -1,9 +1,10 @@
 package ru.practicum.ewm.event.dto;
+
 import lombok.*;
 import ru.practicum.ewm.category.dto.CategoryDto;
 
-import ru.practicum.ewm.event.utility.Location;
-import ru.practicum.ewm.event.utility.State;
+import ru.practicum.ewm.utility.Location;
+import ru.practicum.ewm.utility.State;
 import ru.practicum.ewm.user.dto.UserShortDto;
 
 @Data

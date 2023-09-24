@@ -10,9 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.category.model.Category;
-import ru.practicum.ewm.exception.CategoryAlreadyExists;
-import ru.practicum.ewm.exception.EntityNotFoundException;
-import ru.practicum.ewm.exception.NameAlreadyExists;
+import ru.practicum.ewm.event.EventRepository;
+import ru.practicum.ewm.exception.exceptions.CategoryAlreadyExists;
+import ru.practicum.ewm.exception.exceptions.CategoryDeleteException;
+import ru.practicum.ewm.exception.exceptions.EntityNotFoundException;
+import ru.practicum.ewm.exception.exceptions.NameAlreadyExists;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class CategoryService {
     private final CategoryRepository categoryRepository;
+    private final EventRepository eventRepository;
 
     @SneakyThrows
     @Transactional
@@ -54,10 +57,14 @@ public class CategoryService {
         return categoryFromDb;
     }
 
-
+    @SneakyThrows
     @Transactional
-    public Category deleteCategory(long id) throws EntityNotFoundException {
+    public Category deleteCategory(long id) {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Category.class, id));
+        if (eventRepository.findAllByCategoryId(category.getId()).size() > 0) {
+            log.info("Сгенерирован CategoryDeleteException");
+            throw new CategoryDeleteException();
+        }
         categoryRepository.deleteById(id);
         log.info("Удалена категория: {}", category);
         return category;
@@ -71,7 +78,7 @@ public class CategoryService {
     }
 
     @Transactional(readOnly = true)
-    public List<Category> getCategories(Integer from, Integer size) {
+    public List<Category> findCategories(Integer from, Integer size) {
         int start = from / size;
         Pageable pageable = PageRequest.of(start, size);
         return categoryRepository.findAll(pageable).getContent();
@@ -79,8 +86,7 @@ public class CategoryService {
 
     @SneakyThrows
     @Transactional(readOnly = true)
-    public Category getCategoryById(Long catId){
+    public Category getCategoryById(Long catId) {
         return categoryRepository.findById(catId).orElseThrow(() -> new EntityNotFoundException(Category.class, catId));
     }
-
 }

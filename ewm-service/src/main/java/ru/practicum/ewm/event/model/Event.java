@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.category.model.Category;
-import ru.practicum.ewm.event.utility.State;
+import ru.practicum.ewm.utility.State;
 import ru.practicum.ewm.user.model.User;
 
 import javax.persistence.*;
@@ -46,5 +46,5 @@ public class Event {
     private Boolean requestModeration;
     @Enumerated(EnumType.STRING)
     private State state;
-
+    private Integer views;
 }
