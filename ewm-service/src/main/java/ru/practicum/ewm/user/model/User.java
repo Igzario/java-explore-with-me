@@ -1,6 +1,5 @@
 package ru.practicum.ewm.user.model;
 
-
 import lombok.Data;
 
 import javax.persistence.*;
@@ -29,5 +28,13 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         return id != null && id.equals(((User) o).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        return result;
     }
 }
