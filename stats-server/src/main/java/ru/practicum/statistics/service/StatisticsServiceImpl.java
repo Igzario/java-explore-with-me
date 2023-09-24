@@ -34,6 +34,10 @@ public class StatisticsServiceImpl implements StatisticsService {
         List<HitDto> resultListHits = new ArrayList<>();
         if (unique) {
             list = statisticRepository.findAllHitsWithUniqueIp(startTime, endTime);
+            list.forEach(obj -> {
+                Object[] array = (Object[]) obj;
+                array[2] = BigInteger.valueOf(1);
+            });
         } else {
             list = statisticRepository.findAllHits(startTime, endTime);
         }
@@ -45,6 +49,9 @@ public class StatisticsServiceImpl implements StatisticsService {
             hitDtoWithStat.setHits((BigInteger) array[2]);
             listHits.add(hitDtoWithStat);
         });
+
+        if (listHits.size() == 0)
+        {}
 
 
         if (uriArray != null && listHits.size() > 0) {
