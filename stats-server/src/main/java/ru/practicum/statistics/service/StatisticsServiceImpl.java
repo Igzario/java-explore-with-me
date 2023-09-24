@@ -31,6 +31,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     public List<HitDto> getStatistics(LocalDateTime startTime, LocalDateTime endTime, String[] uriArray, boolean unique) {
         List<Object> list = null;
         List<HitDto> listHits = new ArrayList<>();
+        List<HitDto> resultListHits = new ArrayList<>();
         if (unique) {
             list = statisticRepository.findAllHitsWithUniqueIp(startTime, endTime);
         } else {
@@ -49,18 +50,18 @@ public class StatisticsServiceImpl implements StatisticsService {
         if (uriArray != null && listHits.size() > 0) {
             List<String> uriList = new ArrayList<>(Arrays.asList(uriArray));
             for (HitDto hitDto : listHits) {
-                if (!uriList.contains(hitDto.getUri())) {
-                    listHits.remove(hitDto);
+                if (uriList.contains(hitDto.getUri())) {
+                    resultListHits.add(hitDto);
                 }
             }
         }
-        Collections.sort(listHits, new Comparator<HitDto>() {
+        Collections.sort(resultListHits, new Comparator<HitDto>() {
             @Override
             public int compare(HitDto o1, HitDto o2) {
                 return o2.getHits().compareTo(o1.getHits());
             }
         });
-        log.info("Выведен список Hits: {}", listHits);
-        return listHits;
+        log.info("Выведен список Hits: {}", resultListHits);
+        return resultListHits;
     }
 }
