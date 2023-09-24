@@ -6,6 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class EntityNotFoundException extends Exception {
-    private Class ObjClass;
+    private Class objClass;
     private long id;
 }

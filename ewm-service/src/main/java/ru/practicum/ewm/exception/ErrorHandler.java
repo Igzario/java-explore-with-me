@@ -61,7 +61,7 @@ public class ErrorHandler {
     @ExceptionHandler({IncorrectRequestException.class,
             EventDateException.class})
     @ResponseStatus(BAD_REQUEST)
-    public ApiError IncorrectRequestException(final Exception e) {
+    public ApiError incorrectRequestException(final Exception e) {
         log.error(HttpStatus.valueOf(400) + " " + e.getCause());
         return new ApiError(e.getCause().getStackTrace(),
                 BAD_REQUEST.name(),

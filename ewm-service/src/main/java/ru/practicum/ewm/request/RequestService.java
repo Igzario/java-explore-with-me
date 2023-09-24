@@ -17,7 +17,6 @@ import ru.practicum.ewm.request.mapper.RequestMapper;
 import ru.practicum.ewm.request.model.EventRequestStatusUpdateRequest;
 import ru.practicum.ewm.request.model.EventRequestStatusUpdateResult;
 import ru.practicum.ewm.request.model.Request;
-import ru.practicum.ewm.user.UserRepository;
 import ru.practicum.ewm.user.UserService;
 import ru.practicum.ewm.user.model.User;
 
