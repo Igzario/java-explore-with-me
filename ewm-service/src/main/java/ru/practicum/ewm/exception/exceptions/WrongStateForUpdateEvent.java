@@ -7,5 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class WrongStateForUpdateEvent extends Exception {
     private final String message =
-            "Изменить можно только отмененные события или события в состоянии ожидания модерации";
+            "Only canceled events or events pending moderation can be changed";
 }

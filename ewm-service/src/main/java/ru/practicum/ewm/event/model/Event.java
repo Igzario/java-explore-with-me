@@ -9,6 +9,8 @@ import ru.practicum.ewm.utility.State;
 import ru.practicum.ewm.user.model.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -22,13 +24,18 @@ public class Event {
     @Column(name = "event_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Size(min = 20, max = 2000)
+    @NotBlank(message = "Ошибка ввода - пустое поле annotation")
     private String annotation;
+    @Size(min = 20, max = 7000)
+    @NotBlank(message = "Ошибка ввода - пустое поле description")
     private String description;
     @Column(name = "confirmed_requests")
     private Integer confirmedRequests;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+    @Size(min = 3, max = 120)
     private String title;
     @Column(name = "published_on")
     private LocalDateTime publishedOn;

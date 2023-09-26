@@ -10,6 +10,6 @@ public class NameAlreadyExists extends Exception {
 
     public NameAlreadyExists(Class entity) {
         this.message = entity.getSimpleName() +
-                " c таким именем уже существует";
+                " already exists with the same name";
     }
 }

@@ -6,7 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.compilation.dto.CompilationDto;
+import ru.practicum.ewm.exception.exceptions.EntityNotFoundException;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @Slf4j
@@ -19,16 +23,16 @@ public class CompilationController {
 
     @GetMapping(value = "/{compId}")
     @ResponseStatus(HttpStatus.OK)
-    CompilationDto findCompilationById(@PathVariable Long compId) {
-        log.info("Запрос на вывод подборки с ID-{}", compId);
+    CompilationDto findCompilationById(@PathVariable Long compId) throws EntityNotFoundException {
+        log.info("Request to display a collection with ID-{}", compId);
         return compilationService.findCompilationById(compId);
     }
 
     @GetMapping
     List<CompilationDto> findCompilations(@RequestParam(required = false) Boolean pinned,
-                                          @RequestParam(defaultValue = "0") int from,
-                                          @RequestParam(defaultValue = "10") int size) {
-        log.info("Запрос на вывод списка подборок с pinned-{}", pinned);
+                                          @Valid @PositiveOrZero @RequestParam(defaultValue = "0") int from,
+                                          @Valid @Positive @RequestParam(defaultValue = "10") int size) {
+        log.info("Request to display a list of collections with pinned-{}", pinned);
         return compilationService.findCompilations(pinned, from, size);
     }
 }

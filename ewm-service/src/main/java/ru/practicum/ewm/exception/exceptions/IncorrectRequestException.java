@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class IncorrectRequestException extends Exception {
-    private final String message = "Запрос составлен не корректно";
+    private final String message = "The request was not composed correctly";
 }

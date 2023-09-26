@@ -3,11 +3,11 @@ package ru.practicum.ewm.category;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.exception.exceptions.EntityNotFoundException;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
@@ -22,16 +22,16 @@ public class CategoryController {
     @GetMapping("/{catId}")
     @ResponseStatus(HttpStatus.OK)
     public Category findCategoryById(@PathVariable long catId) throws EntityNotFoundException {
-        log.info("Запрос на вывод категории с ID {}", catId);
+        log.info("Request to display a category with ID {}", catId);
         return categoryService.findCategoryById(catId);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Category> findCategories(
-            @RequestParam(value = "from", defaultValue = "0") @PositiveOrZero Integer from,
-            @Validated @RequestParam(value = "size", defaultValue = "10") @Positive Integer size) {
-        log.info("Запрос на вывод категорий");
+            @Valid @PositiveOrZero @RequestParam(value = "from", defaultValue = "0") Integer from,
+            @Valid @Positive @RequestParam(value = "size", defaultValue = "10") Integer size) {
+        log.info("Request to display categories");
         return categoryService.findCategories(from, size);
     }
 }

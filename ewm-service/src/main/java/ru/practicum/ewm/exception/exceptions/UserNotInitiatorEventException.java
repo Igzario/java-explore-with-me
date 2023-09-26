@@ -9,6 +9,6 @@ public class UserNotInitiatorEventException extends Exception {
     private final String message;
 
     public UserNotInitiatorEventException(Long eventId, Long userId) {
-        this.message = "User c ID " + userId + ", не является создателем события с ID " + eventId;
+        this.message = "User with ID " + userId + ", is not the creator of the event with ID " + eventId;
     }
 }

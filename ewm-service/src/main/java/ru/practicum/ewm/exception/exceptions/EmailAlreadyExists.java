@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class EmailAlreadyExists extends Exception {
-    private final String message = "Пользователь с таким email уже существует";
+    private final String message = "A user with this email already exists";
 }

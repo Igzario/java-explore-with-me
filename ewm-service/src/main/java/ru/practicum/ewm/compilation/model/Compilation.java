@@ -5,6 +5,8 @@ import lombok.ToString;
 import ru.practicum.ewm.event.model.Event;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -15,6 +17,8 @@ public class Compilation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "compilation_id")
     private Long id;
+    @NotBlank
+    @Size(max = 50)
     private String title;
     private Boolean pinned;
 

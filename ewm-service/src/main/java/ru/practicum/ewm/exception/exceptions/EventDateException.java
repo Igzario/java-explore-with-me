@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class EventDateException extends Exception {
-    private final String message = "Время события раньше чем через 2 часа";
+    private final String message = "Event time is less than 2 hours later";
 }

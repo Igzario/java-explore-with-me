@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.compilation.dto.CompilationDto;
 import ru.practicum.ewm.compilation.dto.NewCompilationDto;
 import ru.practicum.ewm.compilation.dto.UpdateCompilationDto;
+import ru.practicum.ewm.exception.exceptions.EntityNotFoundException;
 
 import javax.validation.Valid;
 
@@ -22,20 +23,20 @@ public class CompilationAdminController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     CompilationDto addNewCompilation(@Valid @RequestBody NewCompilationDto dto) {
-        log.info("Запрос на создание подборки: {}", dto);
+        log.info("Request to create a collection: {}", dto);
         return compilationService.addNewCompilation(dto);
     }
 
     @DeleteMapping(value = "/{compId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCompilation(@PathVariable Long compId) {
-        log.info("Запрос на удаление подборки с ID-{}", compId);
+    void deleteCompilation(@PathVariable Long compId) throws EntityNotFoundException {
+        log.info("Request to delete a selection with ID-{}", compId);
         compilationService.deleteCompilation(compId);
     }
 
     @PatchMapping(value = "/{compId}")
     CompilationDto updateCompilation(@PathVariable Long compId,
-                                     @Valid @RequestBody UpdateCompilationDto dto) {
+                                     @Valid @RequestBody UpdateCompilationDto dto) throws EntityNotFoundException {
         log.info("Запрос на обновление подборки с ID-{}, {}", compId, dto);
         return compilationService.updateCompilation(compId, dto);
     }
