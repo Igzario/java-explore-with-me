@@ -51,7 +51,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(CONFLICT)
-    public ApiError CategoryDeleteException(final CategoryDeleteException e) {
+    public ApiError categoryDeleteException(final CategoryDeleteException e) {
         log.error(HttpStatus.valueOf(409) + " " + e.getMessage());
         return new ApiError(e.getStackTrace(),
                 CONFLICT.name(),
@@ -62,7 +62,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(CONFLICT)
-    public ApiError NameAlreadyExists(final NameAlreadyExists e) {
+    public ApiError nameAlreadyExists(final NameAlreadyExists e) {
         log.error(HttpStatus.valueOf(409) + " " + e.getMessage());
         return new ApiError(e.getStackTrace(),
                 CONFLICT.name(),
@@ -73,7 +73,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(CONFLICT)
-    public ApiError EmailAlreadyExists(final EmailAlreadyExists e) {
+    public ApiError emailAlreadyExists(final EmailAlreadyExists e) {
         log.error(HttpStatus.valueOf(409) + " " + e.getMessage());
         return new ApiError(e.getStackTrace(),
                 CONFLICT.name(),
@@ -84,7 +84,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(CONFLICT)
-    public ApiError CategoryAlreadyExists(final CategoryAlreadyExists e) {
+    public ApiError categoryAlreadyExists(final CategoryAlreadyExists e) {
         log.error(HttpStatus.valueOf(409) + " " + e.getMessage());
         return new ApiError(e.getStackTrace(),
                 CONFLICT.name(),
@@ -95,7 +95,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(CONFLICT)
-    public ApiError UserNotInitiatorEventException(final UserNotInitiatorEventException e) {
+    public ApiError userNotInitiatorEventException(final UserNotInitiatorEventException e) {
         log.error(HttpStatus.valueOf(409) + " " + e.getMessage());
         return new ApiError(e.getStackTrace(),
                 CONFLICT.name(),
@@ -106,7 +106,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(CONFLICT)
-    public ApiError WrongStateForUpdateEvent(final WrongStateForUpdateEvent e) {
+    public ApiError wrongStateForUpdateEvent(final WrongStateForUpdateEvent e) {
         log.error(HttpStatus.valueOf(409) + " " + e.getMessage());
         return new ApiError(e.getStackTrace(),
                 CONFLICT.name(),
@@ -128,7 +128,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(BAD_REQUEST)
-    public ApiError EventDateException(final EventDateException e) {
+    public ApiError eventDateException(final EventDateException e) {
         log.error(HttpStatus.valueOf(400) + " " + e.getMessage());
         return new ApiError(e.getStackTrace(),
                 BAD_REQUEST.name(),
