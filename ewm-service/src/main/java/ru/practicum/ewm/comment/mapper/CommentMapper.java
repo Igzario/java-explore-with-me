@@ -30,9 +30,9 @@ public interface CommentMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
     @Mapping(target = "editedDate", ignore = true)
-    Comment UpdatedCommentDtoToComment(UpdatedCommentDto updatedCommentDto);
+    Comment updatedCommentDtoToComment(UpdatedCommentDto updatedCommentDto);
 
     List<CommentDto> toCommentListDto(List<Comment> commentList);
 
-    CommentDto CommentToDto(Comment comment);
+    CommentDto commentToDto(Comment comment);
 }

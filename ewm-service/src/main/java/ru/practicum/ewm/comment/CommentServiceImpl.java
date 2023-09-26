@@ -3,7 +3,6 @@ package ru.practicum.ewm.comment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -23,8 +22,6 @@ import ru.practicum.ewm.user.UserService;
 import ru.practicum.ewm.user.model.User;
 import ru.practicum.ewm.utility.Constants;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,7 +46,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setEvent(event);
 
         log.info("Добавлен комментарий к Event c ID-{}: {}", eventId, comment);
-        return commentMapper.CommentToDto(commentRepository.save(comment));
+        return commentMapper.commentToDto(commentRepository.save(comment));
     }
 
 
@@ -67,7 +64,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setText(updatedCommentDto.getText());
         comment.setEditedDate(LocalDateTime.now());
         log.info("Updated comment to Event with ID-{}: {}", eventId, comment);
-        return commentMapper.CommentToDto(commentRepository.save(comment));
+        return commentMapper.commentToDto(commentRepository.save(comment));
 
     }
 
@@ -82,7 +79,7 @@ public class CommentServiceImpl implements CommentService {
         }
         commentRepository.deleteById(commentId);
         log.info("Deleted comment to Event with ID-{}: {}", eventId, comment);
-        return commentMapper.CommentToDto(comment);
+        return commentMapper.commentToDto(comment);
     }
 
     @Override
@@ -129,14 +126,14 @@ public class CommentServiceImpl implements CommentService {
             throw new UserNotCreatorThisCommentException(comment.getId(), user.getId());
         }
         log.info("Displayed comment with ID-{} from User with ID-{}", commentId, userId);
-        return commentMapper.CommentToDto(comment);
+        return commentMapper.commentToDto(comment);
     }
 
     @Override
     @Transactional(readOnly = true)
     public CommentDto getCommentDtoById(Long commentId) throws EntityNotFoundException {
         log.info("Returned comment with ID-{}", commentId);
-        return commentMapper.CommentToDto(getCommentById(commentId));
+        return commentMapper.commentToDto(getCommentById(commentId));
     }
 
     @Override

@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UserNotCreatorThisCommentException extends Exception{
+public class UserNotCreatorThisCommentException extends Exception {
     private final String message;
 
     public UserNotCreatorThisCommentException(Long commentId, Long userId) {
