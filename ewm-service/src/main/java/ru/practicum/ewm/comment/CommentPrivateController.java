@@ -20,9 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(path = "/users/{userId}")
 public class CommentPrivateController {
-    private final CommentServiceImpl commentService;
+    private final CommentService commentService;
 
-    @PostMapping
+    @PostMapping("/events/{eventId}/comment")
     @ResponseStatus(HttpStatus.CREATED)
     public CommentDto addNewComment(@PathVariable Long userId,
                                     @PathVariable Long eventId,
@@ -48,7 +48,8 @@ public class CommentPrivateController {
     @DeleteMapping("/events/{eventId}/comment/{commentId}")
     public void deleteComment(@PathVariable Long userId,
                               @PathVariable Long eventId,
-                              @PathVariable Long commentId) throws EntityNotFoundException, UserNotCreatorThisCommentException {
+                              @PathVariable Long commentId)
+            throws EntityNotFoundException, UserNotCreatorThisCommentException {
         log.info("Request to delete a comment with ID-{} to Event with ID-{}, from User with ID-{}",
                 commentId, eventId, userId);
         commentService.deleteComment(userId, eventId, commentId);

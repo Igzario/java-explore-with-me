@@ -22,9 +22,8 @@ public interface CommentMapper {
     @Mapping(target = "event", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdDate", expression = "java(LocalDateTime.now())")
-    @Mapping(target = "editedDate", expression = "java(LocalDateTime.now())")
+    @Mapping(target = "editedDate", ignore = true)
     Comment newCommentToComment(NewCommentDto newCommentDto);
-
 
     @Mapping(target = "author", ignore = true)
     @Mapping(target = "event", ignore = true)

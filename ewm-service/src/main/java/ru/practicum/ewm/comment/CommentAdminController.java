@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.exception.exceptions.EntityNotFoundException;
-import ru.practicum.ewm.exception.exceptions.UserNotCreatorThisCommentException;
 
 @Slf4j
 @RestController
@@ -17,7 +16,8 @@ public class CommentAdminController {
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCommentByAdmin(@PathVariable Long commentId) throws EntityNotFoundException, UserNotCreatorThisCommentException {
+    public void deleteCommentByAdmin(@PathVariable Long commentId) throws EntityNotFoundException {
+        log.info("Admin: request to delete a comment with ID-{}", commentId);
         commentService.deleteCommentByAdmin(commentId);
     }
 }
