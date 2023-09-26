@@ -181,31 +181,24 @@ public class CommentServiceImpl implements CommentService {
 
         if (text == null) {
             if (authors == null && events != null) {
-                comments = commentRepository.findCommentsByEvents
-                        (events, start, end, pageable);
+                comments = commentRepository.findCommentsByEvents(events, start, end, pageable);
             } else if (events == null && authors != null) {
-                comments = commentRepository.findCommentsByAuthors
-                        (authors, start, end, pageable);
+                comments = commentRepository.findCommentsByAuthors(authors, start, end, pageable);
             } else if (events == null) {
-                comments = commentRepository.findComments
-                        (start, end, pageable);
+                comments = commentRepository.findComments(start, end, pageable);
             } else {
-                comments = commentRepository.findCommentsByAuthorsAndEvents
-                        (authors, events, start, end, pageable);
+                comments = commentRepository.findCommentsByAuthorsAndEvents(authors, events, start, end, pageable);
             }
         } else {
             if (authors == null && events != null) {
-                comments = commentRepository.findCommentsByTextAndEvents
-                        (text, events, start, end, pageable);
+                comments = commentRepository.findCommentsByTextAndEvents(text, events, start, end, pageable);
             } else if (events == null && authors != null) {
-                comments = commentRepository.findCommentsByTextAndAuthors
-                        (text, authors, start, end, pageable);
+                comments = commentRepository.findCommentsByTextAndAuthors(text, authors, start, end, pageable);
             } else if (events == null) {
-                comments = commentRepository.findCommentsByText
-                        (text, start, end, pageable);
+                comments = commentRepository.findCommentsByText(text, start, end, pageable);
             } else {
-                comments = commentRepository.findCommentsByTextAndAuthorsAndEvents
-                        (text, authors, events, start, end, pageable);
+                comments = commentRepository.findCommentsByTextAndAuthorsAndEvents(text, authors, events,
+                        start, end, pageable);
             }
         }
         List<CommentDto> listCommentDto = commentMapper.toCommentListDto(comments);
