@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.event.dto.EventShortDto;
 import ru.practicum.ewm.user.dto.UserShortDto;
+import ru.practicum.ewm.utility.Constants;
 
 import java.time.LocalDateTime;
 
@@ -21,9 +22,9 @@ public class CommentDto {
 
     private EventShortDto event;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.TIME_PATTERN)
     private LocalDateTime createdDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.TIME_PATTERN)
     private LocalDateTime editedDate;
 }

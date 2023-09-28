@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.comment.dto.CommentDto;
 import ru.practicum.ewm.comment.dto.NewCommentDto;
-import ru.practicum.ewm.comment.dto.UpdatedCommentDto;
 import ru.practicum.ewm.exception.exceptions.EntityNotFoundException;
 import ru.practicum.ewm.exception.exceptions.UserNotCreatorThisCommentException;
 
@@ -37,7 +36,7 @@ public class CommentPrivateController {
     public CommentDto updateComment(@PathVariable Long userId,
                                     @PathVariable Long eventId,
                                     @PathVariable Long commentId,
-                                    @Valid @RequestBody UpdatedCommentDto updatedCommentDto)
+                                    @Valid @RequestBody NewCommentDto updatedCommentDto)
             throws EntityNotFoundException {
         log.info("Request to update a comment with ID-{} to Event with ID-{}, from User with ID-{}",
                 commentId, eventId, userId);

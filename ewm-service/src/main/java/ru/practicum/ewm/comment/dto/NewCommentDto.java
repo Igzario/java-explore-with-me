@@ -11,8 +11,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewCommentDto {
-
-    @NotBlank
+    @NotBlank(message = "Ошибка ввода - пустое поле text")
     @Size(max = 7000, message = "Text length must be max = 7000")
     private String text;
 }

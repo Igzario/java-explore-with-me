@@ -7,6 +7,7 @@ import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.user.model.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -21,6 +22,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Ошибка ввода - пустое поле text")
     @Size(max = 7000)
     private String text;
 

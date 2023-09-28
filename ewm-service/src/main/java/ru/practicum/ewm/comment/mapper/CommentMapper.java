@@ -5,7 +5,6 @@ import org.mapstruct.Mapping;
 import ru.practicum.ewm.category.mapper.CategoryMapper;
 import ru.practicum.ewm.comment.dto.CommentDto;
 import ru.practicum.ewm.comment.dto.NewCommentDto;
-import ru.practicum.ewm.comment.dto.UpdatedCommentDto;
 import ru.practicum.ewm.comment.model.Comment;
 import ru.practicum.ewm.event.mapper.EventMapper;
 import ru.practicum.ewm.user.mapper.UserMapper;
@@ -25,12 +24,6 @@ public interface CommentMapper {
     @Mapping(target = "editedDate", ignore = true)
     Comment newCommentToComment(NewCommentDto newCommentDto);
 
-    @Mapping(target = "author", ignore = true)
-    @Mapping(target = "event", ignore = true)
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "editedDate", ignore = true)
-    Comment updatedCommentDtoToComment(UpdatedCommentDto updatedCommentDto);
 
     List<CommentDto> toCommentListDto(List<Comment> commentList);
 

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.comment.dto.CommentDto;
 import ru.practicum.ewm.comment.dto.NewCommentDto;
-import ru.practicum.ewm.comment.dto.UpdatedCommentDto;
 import ru.practicum.ewm.comment.mapper.CommentMapper;
 import ru.practicum.ewm.comment.model.Comment;
 import ru.practicum.ewm.event.EventService;
@@ -52,7 +51,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public CommentDto updateComment(Long userId, Long eventId, Long commentId, UpdatedCommentDto updatedCommentDto)
+    public CommentDto updateComment(Long userId, Long eventId, Long commentId, NewCommentDto updatedCommentDto)
             throws EntityNotFoundException {
         User user = userService.getUserById(userId);
         Event event = eventService.getEventById(eventId);
@@ -64,7 +63,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setText(updatedCommentDto.getText());
         comment.setEditedDate(LocalDateTime.now());
         log.info("Updated comment to Event with ID-{}: {}", eventId, comment);
-        return commentMapper.commentToDto(commentRepository.save(comment));
+        return commentMapper.commentToDto(comment);
 
     }
 
@@ -179,7 +178,7 @@ public class CommentServiceImpl implements CommentService {
 
         List<Comment> comments;
 
-        if (text == null) {
+        if (text == null || text.isBlank()) {
             if (authors == null && events != null) {
                 comments = commentRepository.findCommentsByEvents(events, start, end, pageable);
             } else if (events == null && authors != null) {
