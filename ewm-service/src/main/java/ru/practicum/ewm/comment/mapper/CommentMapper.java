@@ -12,6 +12,7 @@ import ru.practicum.ewm.user.mapper.UserMapper;
 import ru.practicum.ewm.utility.Constants;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {CategoryMapper.class, UserMapper.class, EventMapper.class},
         imports = {Constants.class, LocalDateTime.class})
@@ -32,6 +33,7 @@ public interface CommentMapper {
     @Mapping(target = "editedDate", ignore = true)
     Comment UpdatedCommentDtoToComment(UpdatedCommentDto updatedCommentDto);
 
+    List<CommentDto> toCommentListDto(List<Comment> commentList);
 
     CommentDto CommentToDto(Comment comment);
 }
