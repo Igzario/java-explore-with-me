@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventAdminController {
 
-    private final EventServiceImpl eventService;
+    private final EventService eventService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

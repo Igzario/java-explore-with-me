@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(path = "/admin/categories")
 public class CategoryAdminController {
-    private final CategoryServiceImpl categoryService;
+    private final CategoryService categoryService;
 
     @PatchMapping(path = "/{catId}")
     @ResponseStatus(HttpStatus.OK)

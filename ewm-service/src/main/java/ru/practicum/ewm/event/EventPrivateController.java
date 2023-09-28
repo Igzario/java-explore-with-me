@@ -24,11 +24,11 @@ import java.util.List;
 @RequestMapping(path = "/users/{userId}/events")
 @RequiredArgsConstructor
 public class EventPrivateController {
-    private final EventServiceImpl eventService;
+    private final EventService eventService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    EventFullDto addNewEvent(@PathVariable Long userId,
+    public EventFullDto addNewEvent(@PathVariable Long userId,
                              @Valid @RequestBody NewEventDto event) throws EntityNotFoundException, EventDateException {
         log.info("Request to add an event from a user with ID-{}: {}", userId, event);
         return eventService.addNewEvent(userId, event);
@@ -36,7 +36,7 @@ public class EventPrivateController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    List<EventShortDto> findEventsByInitiatorId(@PathVariable Long userId,
+    public List<EventShortDto> findEventsByInitiatorId(@PathVariable Long userId,
                                                 @Valid @PositiveOrZero @RequestParam(defaultValue = "0") int from,
                                                 @Valid @Positive @RequestParam(defaultValue = "10") int size)
             throws EntityNotFoundException {
@@ -46,7 +46,7 @@ public class EventPrivateController {
 
     @GetMapping(value = "/{eventId}")
     @ResponseStatus(HttpStatus.OK)
-    EventFullDto findEventByUserIdAndEventId(@PathVariable Long userId,
+    public EventFullDto findEventByUserIdAndEventId(@PathVariable Long userId,
                                              @PathVariable Long eventId) throws EntityNotFoundException {
         log.info("Request output event with ID-{} , where the initiator is User with ID-{}", eventId, userId);
         return eventService.findEventByUserIdAndEventId(userId, eventId);
@@ -54,7 +54,7 @@ public class EventPrivateController {
 
     @PatchMapping(value = "/{eventId}")
     @ResponseStatus(HttpStatus.OK)
-    EventFullDto updateEvent(@PathVariable Long userId,
+    public EventFullDto updateEvent(@PathVariable Long userId,
                              @Valid @RequestBody UpdateEventUserRequest event,
                              @PathVariable Long eventId)
             throws WrongStateForUpdateEvent, UserNotInitiatorEventException,

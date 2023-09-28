@@ -39,7 +39,7 @@ public class RequestServiceImpl implements RequestService {
     private String error;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Request> findAllRequestsByUserId(long userId) {
         log.info("Returned a list of requests for participation in events from User with ID-{}", userId);
         return requestRepository.findAllByRequesterId(userId);
