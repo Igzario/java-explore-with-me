@@ -1,9 +1,11 @@
 package ru.practicum.statistics.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.statistics.exception.BadDateInRequestException;
 import ru.practicum.statistics.mapper.HitMapper;
 import ru.practicum.statistics.repository.StatisticRepository;
 import ru.practicum.statistics.dto.HitDto;
@@ -28,15 +30,23 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     @Override
+    @SneakyThrows
+    @Transactional(readOnly = true)
     public List<HitDto> getStatistics(LocalDateTime startTime, LocalDateTime endTime, String[] uriArray, boolean unique) {
+        if (endTime.isBefore(startTime)) {
+            throw new BadDateInRequestException();
+        }
         List<Object> list = null;
         List<HitDto> listHits = new ArrayList<>();
+        List<HitDto> resultListHits = new ArrayList<>();
         if (unique) {
-            list = statisticRepository.findAllHitsWithUniqueIp(startTime,
-                    endTime);
+            list = statisticRepository.findAllHitsWithUniqueIp(startTime, endTime);
+            list.forEach(obj -> {
+                Object[] array = (Object[]) obj;
+                array[2] = BigInteger.valueOf(1);
+            });
         } else {
-            list = statisticRepository.findAllHits(startTime,
-                    endTime);
+            list = statisticRepository.findAllHits(startTime, endTime);
         }
         list.forEach(obj -> {
             Object[] array = (Object[]) obj;
@@ -46,22 +56,22 @@ public class StatisticsServiceImpl implements StatisticsService {
             hitDtoWithStat.setHits((BigInteger) array[2]);
             listHits.add(hitDtoWithStat);
         });
-
         if (uriArray != null && listHits.size() > 0) {
-            List<String> uriList = Arrays.asList(uriArray);
-            for (int i = 0; i < listHits.size(); i++) {
-                if (!uriList.contains(listHits.get(i).getUri())) {
-                    listHits.remove(listHits.get(i));
+            List<String> uriList = new ArrayList<>(Arrays.asList(uriArray));
+            for (HitDto hitDto : listHits) {
+                if (uriList.contains(hitDto.getUri())) {
+                    resultListHits.add(hitDto);
                 }
             }
         }
-        Collections.sort(listHits, new Comparator<HitDto>() {
+        Collections.sort(resultListHits, new Comparator<HitDto>() {
             @Override
             public int compare(HitDto o1, HitDto o2) {
                 return o2.getHits().compareTo(o1.getHits());
             }
         });
-        log.info("Выведен список Hits: {}", listHits);
-        return listHits;
+        log.info("Выведен список Hits: {}", resultListHits);
+        return resultListHits;
+
     }
 }

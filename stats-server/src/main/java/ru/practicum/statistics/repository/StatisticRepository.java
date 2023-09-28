@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface StatisticRepository extends JpaRepository<Hit, Long> {
-
     @Query(value = "SELECT MAX(e.app) AS app, e.uri AS uri, COUNT(e.uri) AS hits FROM hits AS e " +
             "WHERE e.timestamp between :start AND :end GROUP BY e.uri", nativeQuery = true)
     List<Object> findAllHits(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
