@@ -63,6 +63,8 @@ public class StatisticsServiceImpl implements StatisticsService {
                     resultListHits.add(hitDto);
                 }
             }
+        } else {
+            resultListHits.addAll(listHits);
         }
         Collections.sort(resultListHits, new Comparator<HitDto>() {
             @Override
@@ -72,6 +74,5 @@ public class StatisticsServiceImpl implements StatisticsService {
         });
         log.info("Выведен список Hits: {}", resultListHits);
         return resultListHits;
-
     }
 }

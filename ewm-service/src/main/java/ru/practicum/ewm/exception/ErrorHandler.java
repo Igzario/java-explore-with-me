@@ -95,6 +95,17 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(CONFLICT)
+    public ApiError userNotCreatorThisCommentException(final UserNotCreatorThisCommentException e) {
+        log.error(HttpStatus.valueOf(409) + " " + e.getMessage());
+        return new ApiError(e.getStackTrace(),
+                CONFLICT.name(),
+                "409 Ошибка валидации",
+                e.getMessage(),
+                LocalDateTime.now().format(Constants.TIME_FORMATTER));
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(CONFLICT)
     public ApiError userNotInitiatorEventException(final UserNotInitiatorEventException e) {
         log.error(HttpStatus.valueOf(409) + " " + e.getMessage());
         return new ApiError(e.getStackTrace(),
